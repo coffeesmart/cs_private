@@ -154,12 +154,11 @@ plt.scatter(stats_iter, stats_spec_MAX, s=3, color='grey', label='MAX')
 plt.legend(loc='upper left', fontsize=6)
 plt.ylim((-0.05, 1.05))
 plt.xlim((-0.05, len(stats_list)+0.05))
-plt.show()
-plt.clf()
-
 
 plt.savefig(dir + 'SIMPLE_stats_fig.png')
 
+plt.show()
+plt.clf()
 
 
 stats_list_for_csv = []
