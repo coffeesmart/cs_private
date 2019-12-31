@@ -20,7 +20,7 @@ def datasettocsv(list, filename,separator=','):
     f.close()
 
 dir = './'
-stats_file_name = 'REFINE3D_1'
+stats_file_name = 'REFINE3D_2'
 
 stats_file = dir + stats_file_name
 
@@ -119,13 +119,15 @@ for ii in range(len(stats_list)):
     stats_spec_MAX.append(float(stats_list[ii][3][4][1]))
 
 
-plt.figure(figsize=(12, 4))
+plt.figure(figsize=(15, 5))
 
 plt.subplot(131)
 plt.title('Orientation overlap')
 plt.xlabel('Iterations')
 plt.ylabel('Orientation overlap')
 plt.scatter(stats_iter, stats_overlap, s=3, color='red')
+plt.axhline(y=0.9, color='blue', linewidth=1, label='Overlap=0.9 line')
+plt.legend(loc='upper left', fontsize=7)
 plt.ylim((-0.05, 1.05))
 plt.xlim((-0.05, len(stats_list)+0.05))
 
@@ -133,10 +135,11 @@ plt.subplot(132)
 plt.title('Correlation')
 plt.xlabel('Iterations')
 plt.ylabel('Correlation')
-plt.scatter(stats_iter, stats_corr_AVG, s=3, color='red')
-plt.scatter(stats_iter, stats_corr_SDEV, s=3, color='blue')
-plt.scatter(stats_iter, stats_corr_MIN, s=3, color='green')
-plt.scatter(stats_iter, stats_corr_MAX, s=3, color='grey')
+plt.scatter(stats_iter, stats_corr_AVG, s=3, color='red', label='AVG')
+plt.scatter(stats_iter, stats_corr_SDEV, s=3, color='blue', label='SDEV')
+plt.scatter(stats_iter, stats_corr_MIN, s=3, color='green', label='MIN')
+plt.scatter(stats_iter, stats_corr_MAX, s=3, color='grey', label='MAX')
+plt.legend(loc='upper left', fontsize=6)
 plt.ylim((-0.05, 1.05))
 plt.xlim((-0.05, len(stats_list)+0.05))
 
@@ -144,34 +147,28 @@ plt.subplot(133)
 plt.title('Specscore')
 plt.xlabel('Iterations')
 plt.ylabel('Specscore')
-plt.scatter(stats_iter, stats_spec_AVG, s=3, color='red')
-plt.scatter(stats_iter, stats_spec_SDEV, s=3, color='blue')
-plt.scatter(stats_iter, stats_spec_MIN, s=3, color='green')
-plt.scatter(stats_iter, stats_spec_MAX, s=3, color='grey')
+plt.scatter(stats_iter, stats_spec_AVG, s=3, color='red', label='AVG')
+plt.scatter(stats_iter, stats_spec_SDEV, s=3, color='blue', label='SDEV')
+plt.scatter(stats_iter, stats_spec_MIN, s=3, color='green', label='MIN')
+plt.scatter(stats_iter, stats_spec_MAX, s=3, color='grey', label='MAX')
+plt.legend(loc='upper left', fontsize=6)
 plt.ylim((-0.05, 1.05))
 plt.xlim((-0.05, len(stats_list)+0.05))
 plt.show()
 plt.clf()
 
 
-# plt.scatter(opti_pick_list, opti_max_value, s=3, color='blue')
-# plt.savefig(save_dir + 'FFT_intensity_plot_pick_' + str(pick_criteria) + '_Mask_r' + str(mask_radius) + 'A.png')
-#
-#
-#
-# stats_list_for_csv = []
-# stats_list_for_csv.append(['ITERATION', 'ORIENTATION OVERLAP', 'CORRELATION', '','','','SPECSCORE','','',''])
-# stats_list_for_csv.append(['', '', 'AVG','SDEV','MIN','MAX','AVG','SDEV','MIN','MAX'])
-# for ii in range(len(stats_list)):
-#     aa = stats_list[ii]
-#     for_csv_element = [aa[0][1], aa[1][1], aa[2][1][1], aa[2][2][1], aa[2][3][1], aa[2][4][1], aa[3][1][1], aa[3][2][1], aa[3][3][1], aa[3][4][1]]
-#     stats_list_for_csv.append(for_csv_element)
-#
-# datasettocsv(stats_list_for_csv, dir + 'stats_info.csv')
-#
-#
-#
-#
-#
-#
-# # print(raw)
+plt.savefig(dir + 'SIMPLE_stats_fig.png')
+
+
+
+stats_list_for_csv = []
+stats_list_for_csv.append(['ITERATION', 'ORIENTATION OVERLAP', 'CORRELATION', '','','','SPECSCORE','','',''])
+stats_list_for_csv.append(['', '', 'AVG','SDEV','MIN','MAX','AVG','SDEV','MIN','MAX'])
+for ii in range(len(stats_list)):
+    aa = stats_list[ii]
+    for_csv_element = [aa[0][1], aa[1][1], aa[2][1][1], aa[2][2][1], aa[2][3][1], aa[2][4][1], aa[3][1][1], aa[3][2][1], aa[3][3][1], aa[3][4][1]]
+    stats_list_for_csv.append(for_csv_element)
+
+datasettocsv(stats_list_for_csv, dir + 'stats_info.csv')
+
